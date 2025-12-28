@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { MapPin } from 'lucide-react';
 import { authService } from '../../utils/auth';
 import { useReports } from '../../context/ReportsContext';
 
@@ -31,38 +32,45 @@ const MyReports = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Laporan Saya</h1>
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">Laporan Saya</h1>
         
         {reports.length > 0 ? (
           <div className="space-y-4">
             {reports.map((report) => (
               <div
                 key={report.id}
-                className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition"
+                className="border border-gray-200 rounded-lg p-4 sm:p-6 hover:shadow-md transition"
               >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">{report.title}</h3>
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getCategoryBadge(report.category)}`}>
-                        {report.category}
-                      </span>
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusBadge(report.status)}`}>
-                        {report.status}
-                      </span>
-                    </div>
+                <div className="mb-3">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">{report.title}</h3>
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap ${getCategoryBadge(report.category)}`}>
+                      {report.category}
+                    </span>
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap ${getStatusBadge(report.status)}`}>
+                      {report.status === 'pending' ? 'Pending' : 'Terverifikasi'}
+                    </span>
                   </div>
                 </div>
-                <p className="text-gray-600 mb-3">{report.description}</p>
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <div>
-                    <p className="font-medium">📍 {report.location}</p>
+                <p className="text-sm sm:text-base text-gray-600 mb-3 leading-relaxed">{report.description}</p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-gray-200">
+                  <div className="flex items-start gap-2 text-sm text-gray-500">
+                    <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                    <span className="break-words">{report.location}</span>
                   </div>
-                  <div className="text-right">
-                    <p>Dibuat: {new Date(report.createdAt).toLocaleDateString('id-ID')}</p>
+                  <div className="text-left sm:text-right text-xs sm:text-sm text-gray-500 space-y-1">
+                    <p>Dibuat: {new Date(report.createdAt).toLocaleDateString('id-ID', {
+                      day: 'numeric',
+                      month: 'numeric',
+                      year: 'numeric'
+                    })}</p>
                     {report.verifiedAt && (
-                      <p>Terverifikasi: {new Date(report.verifiedAt).toLocaleDateString('id-ID')}</p>
+                      <p>Terverifikasi: {new Date(report.verifiedAt).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric'
+                      })}</p>
                     )}
                   </div>
                 </div>

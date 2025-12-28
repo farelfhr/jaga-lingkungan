@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AlertCircle } from 'lucide-react';
 import { authService } from '../../utils/auth';
 import { getSchedulesByWilayah } from '../../data/mockData';
 
@@ -69,11 +70,23 @@ const Schedule = () => {
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h2 className="text-lg font-semibold text-blue-900 mb-2">📌 Informasi</h2>
-        <ul className="text-sm text-blue-800 space-y-1">
-          <li>• Pastikan sampah sudah dipilah sesuai jenisnya sebelum pengangkutan</li>
-          <li>• Sampah harus diletakkan di tempat yang mudah dijangkau</li>
-          <li>• Hubungi DLH jika ada perubahan jadwal atau masalah</li>
+        <div className="flex items-center gap-2 mb-3">
+          <AlertCircle className="w-5 h-5 text-blue-600" />
+          <h2 className="text-lg font-semibold text-blue-900">Informasi</h2>
+        </div>
+        <ul className="text-sm text-blue-800 space-y-2">
+          <li className="flex items-start gap-2">
+            <span className="text-blue-600 mt-0.5">•</span>
+            <span>Pastikan sampah sudah dipilah sesuai jenisnya sebelum pengangkutan</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-blue-600 mt-0.5">•</span>
+            <span>Sampah harus diletakkan di tempat yang mudah dijangkau</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-blue-600 mt-0.5">•</span>
+            <span>Hubungi DLH jika ada perubahan jadwal atau masalah</span>
+          </li>
         </ul>
       </div>
     </div>

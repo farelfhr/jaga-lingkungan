@@ -14,7 +14,10 @@ import {
   CheckCircle,
   Leaf,
   Trash2,
-  AlertCircle
+  AlertCircle,
+  MapPin,
+  Clock,
+  AlertTriangle
 } from 'lucide-react';
 
 const DashboardWarga = () => {
@@ -177,24 +180,38 @@ const DashboardWarga = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white p-6 rounded-2xl shadow-lg"
+        className="relative overflow-hidden rounded-2xl shadow-lg"
       >
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">
-              Selamat Datang, {currentUser?.name}! 👋
-            </h1>
-            <p className="text-green-50">
-              Mari bersama-sama menjaga kebersihan lingkungan kita
-            </p>
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(/yogyaplx.png)'
+          }}
+        />
+        
+        {/* Overlay untuk readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-green-900/80 via-emerald-900/75 to-teal-900/80" />
+        
+        {/* Content */}
+        <div className="relative z-10 text-white p-6 md:p-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex-1">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 drop-shadow-lg">
+                Selamat Datang, {currentUser?.name}!
+              </h1>
+              <p className="text-green-50 text-base md:text-lg drop-shadow-md">
+                Mari bersama-sama menjaga kebersihan lingkungan kita
+              </p>
+            </div>
+            <Link
+              to="/dashboard/warga/report-problem"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-green-600 rounded-lg font-semibold hover:bg-green-50 transition transform hover:scale-105 shadow-xl whitespace-nowrap"
+            >
+              <AlertCircle className="w-5 h-5" />
+              Lapor Masalah
+            </Link>
           </div>
-          <Link
-            to="/dashboard/warga/report-problem"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-green-600 rounded-lg font-semibold hover:bg-green-50 transition transform hover:scale-105 shadow-lg whitespace-nowrap"
-          >
-            <AlertCircle className="w-5 h-5" />
-            Lapor Masalah
-          </Link>
         </div>
       </motion.div>
 
@@ -405,12 +422,14 @@ const DashboardWarga = () => {
                     <p className="text-lg font-semibold text-gray-800 mb-2">
                       {trackingStatus.status}
                     </p>
-                    <p className="text-sm text-gray-600 mb-1">
-                      📍 {trackingStatus.lokasi}
-                    </p>
-                    <p className="text-sm text-blue-600 font-medium">
-                      ⏱️ Estimasi tiba: {trackingStatus.estimasi}
-                    </p>
+                    <div className="flex items-start gap-2 text-sm text-gray-600 mb-1">
+                      <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <span>{trackingStatus.lokasi}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-blue-600 font-medium">
+                      <Clock className="w-4 h-4" />
+                      <span>Estimasi tiba: {trackingStatus.estimasi}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -500,9 +519,10 @@ const DashboardWarga = () => {
             </div>
           </div>
           {saldoIuran < tagihan.jumlah && tagihan.status !== 'lunas' && (
-            <p className="text-sm text-red-600 mt-4">
-              ⚠️ Saldo Anda tidak cukup untuk membayar tagihan
-            </p>
+            <div className="flex items-center gap-2 text-sm text-red-600 mt-4">
+              <AlertTriangle className="w-4 h-4" />
+              <span>Saldo Anda tidak cukup untuk membayar tagihan</span>
+            </div>
           )}
         </div>
       </motion.div>

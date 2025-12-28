@@ -143,10 +143,24 @@ const DashboardDLH = () => {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-6 rounded-xl shadow-lg"
+        className="relative overflow-hidden rounded-xl shadow-lg"
       >
-        <h1 className="text-3xl font-bold mb-2">Dashboard DLH</h1>
-        <p className="text-blue-100">Monitor dan kelola pengelolaan sampah secara real-time</p>
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(/yogyaplx.png)'
+          }}
+        />
+        
+        {/* Overlay untuk readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-indigo-900/80 to-purple-900/85" />
+        
+        {/* Content */}
+        <div className="relative z-10 text-white p-6 md:p-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 drop-shadow-lg">Dashboard DLH</h1>
+          <p className="text-blue-50 text-base md:text-lg drop-shadow-md">Monitor dan kelola pengelolaan sampah secara real-time</p>
+        </div>
       </motion.div>
 
       {/* Statistik Utama */}

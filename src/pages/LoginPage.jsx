@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { authService } from '../utils/auth';
 import { users } from '../data/mockData';
-import { Leaf, Lock, User, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { Leaf, Lock, User, AlertCircle, Eye, EyeOff, Info } from 'lucide-react';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -75,7 +75,11 @@ const LoginPage = () => {
                     transition={{ duration: 0.5 }}
                     className="inline-block"
                   >
-                    <Leaf className="w-16 h-16 text-green-600 mx-auto" />
+                    <img 
+                      src="/logo.jpeg" 
+                      alt="Jaga Lingkungan" 
+                      className="w-20 h-20 object-cover rounded-full mx-auto border-4 border-green-100"
+                    />
                   </motion.div>
                 </Link>
                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
@@ -187,7 +191,7 @@ const LoginPage = () => {
               {/* Demo Accounts */}
               <div className="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4">
                 <p className="text-sm font-semibold text-blue-900 mb-3 flex items-center gap-2">
-                  <span>💡</span>
+                  <Info className="w-4 h-4" />
                   Akun Demo:
                 </p>
                 <div className="space-y-2 text-sm">

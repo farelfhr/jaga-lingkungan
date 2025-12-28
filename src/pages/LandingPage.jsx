@@ -33,9 +33,18 @@ const LandingPage = () => {
           style={{ y }}
           className="absolute inset-0 z-0"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
-            {/* Nature pattern overlay */}
-            <div className="absolute inset-0 opacity-20">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url(/yogyaplx.png)'
+            }}
+          />
+          
+          {/* Overlay untuk readability dan efek hijau */}
+          <div className="absolute inset-0 bg-gradient-to-br from-green-600/75 via-emerald-600/70 to-teal-600/75">
+            {/* Subtle pattern overlay */}
+            <div className="absolute inset-0 opacity-10">
               <div className="absolute top-20 left-10 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
               <div className="absolute top-40 right-10 w-72 h-72 bg-emerald-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
               <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
@@ -43,49 +52,6 @@ const LandingPage = () => {
           </div>
         </motion.div>
 
-        {/* Floating elements */}
-        <motion.div
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-20 left-10 text-6xl opacity-30 z-10"
-        >
-          🌿
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, -5, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-40 right-20 text-5xl opacity-30 z-10"
-        >
-          🌱
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [0, -15, 0],
-            rotate: [0, 3, 0],
-          }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-32 left-1/4 text-4xl opacity-30 z-10"
-        >
-          🍃
-        </motion.div>
 
         {/* Hero Content */}
         <motion.div
@@ -103,7 +69,11 @@ const LandingPage = () => {
               transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
               className="inline-block mb-4"
             >
-              <Leaf className="w-20 h-20 text-white mx-auto drop-shadow-lg" />
+              <img 
+                src="/logo.jpeg" 
+                alt="Jaga Lingkungan" 
+                className="w-24 h-24 object-cover rounded-full mx-auto drop-shadow-lg border-4 border-white/30"
+              />
             </motion.div>
           </motion.div>
 
@@ -406,7 +376,11 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Leaf className="w-6 h-6 text-green-400" />
+                <img 
+                  src="/logo.jpeg" 
+                  alt="Jaga Lingkungan" 
+                  className="w-8 h-8 object-cover rounded"
+                />
                 <h3 className="text-xl font-bold text-white">Jaga Lingkungan</h3>
               </div>
               <p className="text-gray-400">
