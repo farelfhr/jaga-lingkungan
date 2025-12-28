@@ -1,12 +1,24 @@
 // Simple authentication utility
 // In a real app, this would interact with a backend API
+import { users } from '../data/mockData';
 
 export const authService = {
+  // Initialize mock users if not exists
+  init: () => {
+    if (!localStorage.getItem('mockUsers')) {
+      localStorage.setItem('mockUsers', JSON.stringify(users));
+    }
+  },
+
   // Login function
   login: (username, password) => {
+    // Ensure users are initialized
+    authService.init();
+    
     // This would normally be an API call
     // For now, we'll use localStorage
-    const user = JSON.parse(localStorage.getItem('mockUsers') || '[]').find(
+    const mockUsers = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+    const user = mockUsers.find(
       u => u.username === username && u.password === password
     );
     
