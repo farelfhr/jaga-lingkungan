@@ -437,6 +437,11 @@ const LandingPage = () => {
                     Login
                   </Link>
                 </li>
+                <li>
+                  <Link to="/edukasi" className="hover:text-green-400 transition">
+                    Edukasi
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>

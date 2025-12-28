@@ -23,21 +23,27 @@ const PublicLayout = () => {
                 🌱 Jaga Lingkungan
               </Link>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Link
+                to="/edukasi"
+                className="px-3 py-2 text-gray-700 hover:text-green-600 transition text-sm sm:text-base"
+              >
+                Edukasi
+              </Link>
               {currentUser ? (
                 <>
-                  <span className="text-gray-700">
+                  <span className="text-gray-700 text-sm sm:text-base hidden sm:inline">
                     Selamat datang, {currentUser.name}
                   </span>
                   <Link
                     to={currentUser.role === 'warga' ? '/dashboard/warga' : '/dashboard/dlh'}
-                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                    className="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition text-sm sm:text-base"
                   >
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+                    className="px-3 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition text-sm sm:text-base"
                   >
                     Logout
                   </button>
@@ -45,7 +51,7 @@ const PublicLayout = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                  className="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition text-sm sm:text-base"
                 >
                   Login
                 </Link>

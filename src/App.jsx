@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ReportsProvider } from './context/ReportsContext';
 import PublicLayout from './layouts/PublicLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
+import EdukasiPage from './pages/EdukasiPage';
 import DashboardWarga from './pages/warga/DashboardWarga';
 import WasteHistory from './pages/warga/WasteHistory';
 import MyReports from './pages/warga/MyReports';
+import ReportProblem from './pages/warga/ReportProblem';
 import Schedule from './pages/warga/Schedule';
 import DashboardDLH from './pages/dlh/DashboardDLH';
 import ReportsManagement from './pages/dlh/ReportsManagement';
@@ -16,13 +19,15 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<PublicLayout />}>
-          <Route index element={<LandingPage />} />
-          <Route path="login" element={<LoginPage />} />
-        </Route>
+    <ReportsProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<PublicLayout />}>
+            <Route index element={<LandingPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="edukasi" element={<EdukasiPage />} />
+          </Route>
 
         {/* Protected Routes - Warga */}
         <Route
@@ -36,6 +41,7 @@ function App() {
           <Route index element={<DashboardWarga />} />
           <Route path="waste" element={<WasteHistory />} />
           <Route path="reports" element={<MyReports />} />
+          <Route path="report-problem" element={<ReportProblem />} />
           <Route path="schedule" element={<Schedule />} />
         </Route>
 
@@ -58,6 +64,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
+    </ReportsProvider>
   );
 }
 

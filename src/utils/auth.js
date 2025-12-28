@@ -18,8 +18,13 @@ export const authService = {
     // This would normally be an API call
     // For now, we'll use localStorage
     const mockUsers = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+    
+    // Normalize username for comparison (case insensitive)
+    const normalizedUsername = username.toLowerCase().trim();
+    
+    // Find user by username and password
     const user = mockUsers.find(
-      u => u.username === username && u.password === password
+      u => u.username.toLowerCase() === normalizedUsername && u.password === password
     );
     
     if (user) {

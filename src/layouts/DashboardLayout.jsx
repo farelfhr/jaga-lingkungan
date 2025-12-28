@@ -1,17 +1,24 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { authService } from '../utils/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentUser = authService.getCurrentUser();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
       navigate('/login');
     }
   }, [currentUser, navigate]);
+
+  // Close sidebar when route changes on mobile
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
 
   const handleLogout = () => {
     authService.logout();
@@ -29,8 +36,10 @@ const DashboardLayout = () => {
     ? [
         { path: '/dashboard/warga', label: 'Dashboard', icon: '📊' },
         { path: '/dashboard/warga/waste', label: 'Riwayat Sampah', icon: '🗑️' },
+        { path: '/dashboard/warga/report-problem', label: 'Lapor Masalah', icon: '🚨' },
         { path: '/dashboard/warga/reports', label: 'Laporan Saya', icon: '📝' },
-        { path: '/dashboard/warga/schedule', label: 'Jadwal Pengangkutan', icon: '📅' }
+        { path: '/dashboard/warga/schedule', label: 'Jadwal Pengangkutan', icon: '📅' },
+        { path: '/edukasi', label: 'Edukasi', icon: '📚' }
       ]
     : [
         { path: '/dashboard/dlh', label: 'Dashboard', icon: '📊' },
@@ -41,8 +50,26 @@ const DashboardLayout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-lg shadow-lg"
+      >
+        {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
+
+      {/* Sidebar Overlay (Mobile) */}
+      {sidebarOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <div className="fixed inset-y-0 left-0 w-64 bg-gray-800 text-white">
+      <div className={`fixed inset-y-0 left-0 w-64 bg-gray-800 text-white transform transition-transform duration-300 z-40 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="p-6 border-b border-gray-700">
@@ -92,16 +119,16 @@ const DashboardLayout = () => {
       </div>
 
       {/* Main Content */}
-      <div className="ml-64">
+      <div className="lg:ml-64">
         {/* Top Bar */}
         <header className="bg-white shadow-sm sticky top-0 z-10">
-          <div className="px-6 py-4">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-gray-800">
+          <div className="px-4 sm:px-6 py-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
                 {navItems.find(item => item.path === location.pathname)?.label || 'Dashboard'}
               </h1>
               <div className="flex items-center space-x-4">
-                <span className="text-gray-600">
+                <span className="text-sm sm:text-base text-gray-600">
                   {new Date().toLocaleDateString('id-ID', {
                     weekday: 'long',
                     year: 'numeric',
@@ -115,7 +142,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="p-6">
+        <main className="p-4 sm:p-6">
           <Outlet />
         </main>
       </div>

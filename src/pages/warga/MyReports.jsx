@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { authService } from '../../utils/auth';
-import { getReportsByUserId } from '../../data/mockData';
+import { useReports } from '../../context/ReportsContext';
 
 const MyReports = () => {
-  const [reports, setReports] = useState([]);
-
-  useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-    if (currentUser) {
-      const userReports = getReportsByUserId(currentUser.id);
-      setReports(userReports);
-    }
-  }, []);
+  const currentUser = authService.getCurrentUser();
+  const { reports: allReports } = useReports();
+  
+  const reports = useMemo(() => {
+    if (!currentUser) return [];
+    return allReports.filter(r => r.userId === currentUser.id);
+  }, [allReports, currentUser]);
 
   const getStatusBadge = (status) => {
     const styles = {

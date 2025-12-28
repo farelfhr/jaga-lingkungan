@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
-import { reports } from '../../data/mockData';
+import { useState } from 'react';
+import { useReports } from '../../context/ReportsContext';
 
 const ReportsManagement = () => {
-  const [allReports, setAllReports] = useState([]);
+  const { reports: allReports, updateReport } = useReports();
   const [filter, setFilter] = useState('all'); // all, pending, verified
-
-  useEffect(() => {
-    setAllReports(reports);
-  }, []);
 
   const filteredReports = filter === 'all'
     ? allReports
@@ -105,12 +101,29 @@ const ReportsManagement = () => {
                   </div>
                 </div>
                 {report.status === 'pending' && (
-                  <div className="mt-4 flex space-x-2">
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      onClick={() => updateReport(report.id, {
+                        status: 'verified',
+                        verifiedAt: new Date().toISOString()
+                      })}
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    >
                       Verifikasi
                     </button>
-                    <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
-                      Tolak
+                    <button
+                      onClick={() => {
+                        if (confirm('Tugaskan petugas untuk laporan ini?')) {
+                          updateReport(report.id, {
+                            status: 'verified',
+                            assigned: true,
+                            assignedAt: new Date().toISOString()
+                          });
+                        }
+                      }}
+                      className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                    >
+                      Tugaskan Petugas
                     </button>
                   </div>
                 )}

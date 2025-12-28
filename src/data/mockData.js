@@ -2,7 +2,18 @@
 export const users = [
   {
     id: 1,
-    username: 'user',
+    username: 'user', // Also accepts 'warga' as username
+    password: '123',
+    role: 'warga',
+    name: 'Budi Santoso',
+    email: 'budi@example.com',
+    phone: '081234567890',
+    address: 'Jl. Merdeka No. 123, RT 05/RW 02',
+    wilayah: 'Kelurahan Sukajadi'
+  },
+  {
+    id: 3,
+    username: 'warga', // Alternative username for warga
     password: '123',
     role: 'warga',
     name: 'Budi Santoso',
